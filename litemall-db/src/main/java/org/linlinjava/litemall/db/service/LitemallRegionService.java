@@ -24,6 +24,10 @@ public class LitemallRegionService {
     public LitemallRegion findById(Integer id) {
         return regionMapper.selectByPrimaryKey(id);
     }
+    
+    public LitemallRegion findByName(String name ,Byte type) {
+        return regionMapper.findByName(name,type);
+    }
 
     public List<LitemallRegion> querySelective(String name, Integer code, Integer page, Integer size, String sort, String order) {
         LitemallRegionExample example = new LitemallRegionExample();

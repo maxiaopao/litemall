@@ -63,11 +63,15 @@ public class AdminCategoryController {
         if(!level.equals("L1") && !level.equals("L2")){
             return ResponseUtil.badArgumentValue();
         }
-
-        Integer pid = category.getPid();
-        if(pid == null){
-            return ResponseUtil.badArgument();
+        
+        if(level.equals("L2")){
+        	Integer pid = category.getPid();
+            if(pid == null){
+                return ResponseUtil.badArgument();
+            }
         }
+
+        
 
         return null;
     }

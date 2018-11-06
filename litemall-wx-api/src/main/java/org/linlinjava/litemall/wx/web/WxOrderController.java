@@ -159,6 +159,7 @@ public class WxOrderController {
             orderVo.put("actualPrice", order.getActualPrice());
             orderVo.put("orderStatusText", OrderUtil.orderStatusText(order));
             orderVo.put("handleOption", OrderUtil.build(order));
+            orderVo.put("addTime", order.getAddTime());
 
             LitemallGroupon groupon = grouponService.queryByOrderId(order.getId());
             if (groupon != null) {
@@ -175,6 +176,8 @@ public class WxOrderController {
                 orderGoodsVo.put("goodsName", orderGoods.getGoodsName());
                 orderGoodsVo.put("number", orderGoods.getNumber());
                 orderGoodsVo.put("picUrl", orderGoods.getPicUrl());
+                orderGoodsVo.put("price", orderGoods.getPrice());
+                orderGoodsVo.put("specifications", orderGoods.getSpecifications());
                 orderGoodsVoList.add(orderGoodsVo);
             }
             orderVo.put("goodsList", orderGoodsVoList);

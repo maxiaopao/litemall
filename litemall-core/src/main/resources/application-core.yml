@@ -1,11 +1,11 @@
 litemall:
   # 开发者应该设置成自己的wx相关信息
   wx:
-    app-id: wxa5b486c6b918ecfb
-    app-secret: e04004829d4c383b4db7769d88dfbca1
-    mch-id: 111111
-    mch-key: xxxxxx
-    notify-url: http://www.example.com/wx/order/pay-notify
+    app-id: wx8f634925ee3d9a21
+    app-secret: 2fed42c06253a52763880b2f10bf1f02
+    mch-id: 1517501661
+    mch-key: skaLEYtMKDz7R8nJWjAEUwiDB8vKWJta
+    notify-url: http://c7rs83.natappfree.cc/wx/order/pay-notify
 
   #通知相关配置
   notify:
@@ -84,7 +84,7 @@ litemall:
   # 对象存储配置
   storage:
     # 当前工作的对象存储模式，分别是local、aliyun、tencent、qiniu
-    active: local
+    active: aliyun
     # 本地对象存储配置信息
     local:
       storagePath: storage
@@ -92,10 +92,10 @@ litemall:
       address: http://localhost:8080/wx/storage/fetch/
     # 阿里云对象存储配置信息
     aliyun:
-      endpoint: oss-cn-shenzhen.aliyuncs.com
-      accessKeyId: 111111
-      accessKeySecret: xxxxxx
-      bucketName: litemall
+      endpoint: oss-cn-hangzhou.aliyuncs.com
+      accessKeyId: LTAI5GDjkUHtJfou
+      accessKeySecret: fNeTv3o9HWdDLgg4GvK5o6Tiae9xDu
+      bucketName: weidianoss
     # 腾讯对象存储配置信息
     # 请参考 https://cloud.tencent.com/document/product/436/6249
     tencent:

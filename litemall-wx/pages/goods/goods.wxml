@@ -42,10 +42,14 @@
       </view>
     </view>
   </view>
+
+
   <view class="section-nav section-attr" bindtap="switchAttrPop">
     <view class="t">{{checkedSpecText}}</view>
     <image class="i" src="/static/images/address_right.png" background-size="cover"></image>
   </view>
+
+
   <view class="comments" wx:if="{{comment.count > 0}}">
     <view class="h">
       <navigator url="/pages/comment/comment?valueId={{goods.id}}&type=0">
@@ -71,6 +75,8 @@
       </view>
     </view>
   </view>
+
+  
   <view class="goods-attr">
     <view class="t">商品参数</view>
     <view class="l">

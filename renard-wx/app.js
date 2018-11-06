@@ -3,7 +3,7 @@ var api = require('./config/api.js');
 var user = require('./utils/user.js');
 
 App({
- onLaunch: function() {
+ onLaunch: function() { 
   const updateManager = wx.getUpdateManager();
   wx.getUpdateManager().onUpdateReady(function() {
    wx.showModal({

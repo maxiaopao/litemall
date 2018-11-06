@@ -4,6 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.linlinjava.litemall.core.util.RegexUtil;
 import org.linlinjava.litemall.db.domain.LitemallAddress;
+import org.linlinjava.litemall.db.domain.LitemallRegion;
 import org.linlinjava.litemall.db.service.LitemallAddressService;
 import org.linlinjava.litemall.db.service.LitemallRegionService;
 import org.linlinjava.litemall.core.util.ResponseUtil;
@@ -14,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,6 +59,7 @@ public class WxAddressController {
             addressVo.put("name", address.getName());
             addressVo.put("mobile", address.getMobile());
             addressVo.put("isDefault", address.getIsDefault());
+            addressVo.put("version", address.getVersion());
             String province = regionService.findById(address.getProvinceId()).getName();
             String city = regionService.findById(address.getCityId()).getName();
             String area = regionService.findById(address.getAreaId()).getName();
@@ -67,6 +70,36 @@ public class WxAddressController {
             addressVoList.add(addressVo);
         }
         return ResponseUtil.ok(addressVoList);
+    }
+    
+    @GetMapping("district")
+    public Object district(@LoginUser Integer userId,String provinceName,String cityName,String districtName) {
+        if(userId == null){
+            return ResponseUtil.unlogin();
+        }
+        
+        LitemallRegion  province = this.regionService.findByName(provinceName, new Byte("1"));
+        LitemallRegion  city = this.regionService.findByName(cityName, new Byte("2"));
+        LitemallRegion  district = this.regionService.findByName(districtName, new Byte("3"));
+        
+        Map<Object, Object> provinceMap = new HashMap<Object, Object>();
+        provinceMap.put("id", province.getId());
+        provinceMap.put("name", province.getName());
+        
+        Map<Object, Object> cityMap = new HashMap<Object, Object>();
+        cityMap.put("id", city.getId());
+        cityMap.put("name", city.getName());
+        
+        Map<Object, Object> districtMap = new HashMap<Object, Object>();
+        districtMap.put("id", district.getId());
+        districtMap.put("name", district.getName());
+        
+        Map<Object, Object> dataMap = new HashMap<Object, Object>();
+        dataMap.put("province", provinceMap);
+        dataMap.put("city", cityMap);
+        dataMap.put("district", districtMap);
+        
+        return ResponseUtil.ok(dataMap);
     }
 
     /**
@@ -122,6 +155,7 @@ public class WxAddressController {
         data.put("cityName", cname);
         String dname = regionService.findById(address.getAreaId()).getName();
         data.put("areaName", dname);
+        data.put("version", address.getVersion());
         return ResponseUtil.ok(data);
     }
 
@@ -190,10 +224,10 @@ public class WxAddressController {
         if(userId == null){
             return ResponseUtil.unlogin();
         }
-        Object error = validate(address);
-        if(error != null){
-            return error;
-        }
+//        Object error = validate(address);
+//        if(error != null){
+//            return error;
+//        }
 
         if(address.getIsDefault()){
             // 重置其他收获地址的默认选项
@@ -212,6 +246,20 @@ public class WxAddressController {
             }
         }
         return ResponseUtil.ok(address.getId());
+    }
+    
+    @PostMapping("resetDefault")
+    public Object resetDefault(@LoginUser Integer userId, @RequestBody LitemallAddress address) {
+        if(userId == null){
+            return ResponseUtil.unlogin();
+        }
+
+        // 重置其他收获地址的默认选项
+        addressService.resetDefault(userId);
+        address.setIsDefault(true);
+        addressService.updateId(address);
+        
+        return ResponseUtil.ok(address);
     }
 
     /**

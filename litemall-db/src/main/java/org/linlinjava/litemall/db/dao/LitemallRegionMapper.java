@@ -1,6 +1,7 @@
 package org.linlinjava.litemall.db.dao;
 
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.linlinjava.litemall.db.domain.LitemallRegion;
 import org.linlinjava.litemall.db.domain.LitemallRegionExample;
@@ -129,4 +130,6 @@ public interface LitemallRegionMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(LitemallRegion record);
+
+	LitemallRegion findByName(@Param("name") String name, @Param("type") Byte type);
 }

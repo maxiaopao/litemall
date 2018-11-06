@@ -103,6 +103,14 @@
       order by ${orderByClause}
     </if>
   </select>
+  
+  <select id="findByName" parameterType="org.linlinjava.litemall.db.domain.LitemallRegion" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from litemall_region
+    where name = #{name} and type = #{type}
+  </select>
+  
   <select id="selectByExampleSelective" parameterType="map" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated

@@ -70,9 +70,9 @@ public class WxHomeController {
     @GetMapping("/index")
     public Object index() {
         //优先从缓存中读取
-        if (HomeCacheManager.hasData(HomeCacheManager.INDEX)) {
-            return ResponseUtil.ok(HomeCacheManager.getCacheData(HomeCacheManager.INDEX));
-        }
+//        if (HomeCacheManager.hasData(HomeCacheManager.INDEX)) {
+//            return ResponseUtil.ok(HomeCacheManager.getCacheData(HomeCacheManager.INDEX));
+//        }
 
 
         Map<String, Object> data = new HashMap<>();
