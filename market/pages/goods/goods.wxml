@@ -1,0 +1,242 @@
+<view class="{{openAttr || openShare?'no-scroll':''}}">
+  <view class="attr-picker" wx:if="{{openAttr}}">
+    <view class="content-box">
+      <view class="flex-row" style="border-bottom: 1rpx solid #e3e3e3;padding: 24rpx 28rpx">
+        <view class="flex-grow-0">
+          <view class="goods-pic-box">
+            <image mode="aspectFill" src="{{goods.picUrl}}"></image>
+          </view>
+        </view>
+        <view class="flex-grow-1" style="padding: 0 24rpx">
+
+          <view style="color:#ff4544;margin-bottom: 12rpx;font-weight: bold">￥{{checkedSpecPrice}}</view>
+          <view style="font-size:9pt">
+            <block>库存9999件</block>
+          </view>
+        </view>
+        <view class="flex-grow-0">
+          <view bindtap="closeAttr" class="flex-x-center flex-y-center" style="width: 100rpx;height: 100rpx">
+            <image src="/static/images/icon-close.png" style="width: 30rpx;height: 30rpx"></image>
+          </view>
+        </view>
+      </view>
+
+      <scroll-view scrollY="true" style="max-height: 650rpx;">
+        <view style="padding: 24rpx 28rpx">
+          <view>
+            <view class="attr-group" wx:if="{{specificationList.length>0}}" wx:for="{{specificationList}}" wx:key="name">
+              <view class="attr-group-name">{{item.name}}</view>
+              <view class="attr-list">
+                <text class="attr-item {{vitem.checked ? 'active' : ''}}" bindtap="clickSkuValue" wx:for="{{item.valueList}}" wx:for-item="vitem" wx:key="{{vitem.id}}" data-value-id="{{vitem.id}}" data-name="{{vitem.specification}}">{{vitem.value}}
+                                </text>
+              </view>
+            </view>
+          </view>
+          <view style="height: 0;border-bottom: 1rpx solid #e3e3e3;margin-bottom: 40rpx"></view>
+          <view style="padding-bottom: 40rpx">
+            <view class="flex-row flex-y-center mb-20">
+              <view class="flex-grow-1">数量</view>
+              <view class="flex-grow-0">
+                <view class="flex-row number-input-box">
+                  <view bindtap="cutNumber" class="flex-grow-0 flex-x-center flex-y-center number-btn number-sub {{number<=1?'disabled':''}}">-
+                  </view>
+                  <view class="flex-grow-0">
+                    <input disabled="true" class="flex-grow-1 number-input" min="1" step="1" type="number" value="{{number}}"></input>
+                  </view>
+                  <view bindtap="addNumber" class="flex-grow-0 flex-x-center flex-y-center number-btn number-add">+
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+
+
+
+
+
+
+  <view style="padding-bottom: 120rpx">
+    <swiper indicator-dots="true" autoplay="true" class="goods-image-swiper" duration="300" indicatorDots="true" interval="5000">
+      <swiper-item wx:for="{{goods.gallery}}" wx:key="*this">
+        <image bindtap="onGoodsImageClick" class="goods-image" data-index="{{index}}" mode="aspectFill" src="{{item}}"></image>
+      </swiper-item>
+    </swiper>
+
+    <view class="goods-info" style="background: #fff;padding:32rpx 24rpx;border-bottom: 1rpx solid #eee ">
+      <view style="font-weight: bold;margin-bottom: 24rpx;line-height: 1.7">{{goods.name}}</view>
+
+      <view class="flex-row flex-y-center">
+        <view class="flex-grow-1 flex-row flex-y-bottom">
+
+          <view class="flex-grow-0" style="font-weight: bold;color: #ff4544;margin-right: 32rpx">
+            <text style="font-size: 9pt;">￥</text>
+            <text style="font-size: 13pt">{{checkedSpecPrice}}</text>
+          </view>
+          <view class="flex-grow-0" style="margin-right: 32rpx">
+            <text style="font-size: 9pt;color: #888;text-decoration: line-through">￥{{goods.counterPrice}}
+                              </text>
+          </view>
+          <!-- <view class="flex-grow-0" style="margin-right: 32rpx">
+                        <text style="font-size: 9pt;color: #888;">销量：{{goods.sales_volume}} {{goods.unit}}</text>
+                    </view> -->
+        </view>
+        <view class="flex-grow-0">
+          <button bindtap="shareFriendOrCircle" class="share-btn" plain="true">
+            <image src="/static/images/icon-share.png" style="width: 40rpx;height: 40rpx"></image>
+            <view style="color: #888">分享</view>
+          </button>
+        </view>
+      </view>
+      <view class="brand" wx:if="{{brand.name}}">
+        <navigator url="../brandDetail/brandDetail?id={{brand.id}}">
+          <text>{{brand.name}}</text>
+        </navigator>
+      </view>
+    </view>
+
+
+
+    <view class="mb-20"></view>
+    <view bindtap="switchAttrPop" class="flex-row flex-y-center" style="background: #fff;padding:0 24rpx;margin-bottom: 20rpx;height: 100rpx;">
+      <view class="flex-grow-1 flex-row flex-y-center">
+        <text>选择</text>
+        <text style="margin-left: 40rpx;font-size: 9pt;color: #888888">规格</text>
+      </view>
+      <view class="flex-grow-0">
+        <image src="/static/images/icon-jiantou-r.png" style="width: 16rpx;height: 26rpx"></image>
+      </view>
+    </view>
+
+
+    <view class="comments" wx:if="{{comment.count > 0}}">
+      <view class="h">
+        <navigator url="/pages/comment/comment?valueId={{goods.id}}&type=0">
+          <text class="t">评价({{comment.count > 999 ? '999+' : comment.count}})</text>
+          <text class="i">查看全部</text>
+        </navigator>
+      </view>
+      <view class="b">
+        <view class="item" wx:for="{{comment.data}}" wx:key="id">
+          <view class="info">
+            <view class="user">
+              <image src="{{item.avatar}}"></image>
+              <text>{{item.nickname}}</text>
+            </view>
+            <view class="time">{{item.addTime}}</view>
+          </view>
+          <view class="content">
+            {{item.content}}
+          </view>
+          <view class="imgs" wx:if="{{item.picList.length > 0}}">
+            <image class="img" wx:for="{{item.picList}}" wx:key="*this" wx:for-item="iitem" src="{{iitem}} "></image>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="tab-group">
+      <view class="goods-attr">
+        <view class="t">商品参数</view>
+        <view class="l">
+          <view class="item" wx:for="{{attribute}}" wx:key="name">
+            <text class="left">{{item.attribute}}</text>
+            <text class="right">{{item.value}}</text>
+          </view>
+        </view>
+      </view>
+      
+
+
+      <view class="tab-group-body">
+        <view class="tab-group-item active">
+          <view class="goods-detail">
+            <import src="/lib/wxParse/wxParse.wxml" />
+            <template is="wxParse" data="{{wxParseData:goodsDetail.nodes}}"></template>
+          </view>
+        </view>
+      </view>
+
+
+    </view>
+
+    <view class="common-problem">
+      <view class="h">
+        <view class="line"></view>
+        <text class="title">常见问题</text>
+      </view>
+      <view class="b">
+        <view class="item" wx:for="{{issueList}}" wx:key="id">
+          <view class="question-box">
+            <text class="spot"></text>
+            <text class="question">{{item.question}}</text>
+          </view>
+          <view class="answer">
+            {{item.answer}}
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 大家都在看 -->
+    <view class="related-goods" wx:if="{{relatedGoods.length > 0}}">
+      <view class="h">
+        <view class="line"></view>
+        <text class="title">大家都在看</text>
+      </view>
+      <view class="b">
+        <view class="item" wx:for="{{relatedGoods}}" wx:key="id">
+          <navigator url="/pages/goods/goods?id={{item.id}}">
+            <image class="img" src="{{item.picUrl}}" background-size="cover"></image>
+            <text class="name">{{item.name}}</text>
+            <text class="price">￥{{item.retailPrice}}</text>
+          </navigator>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <navigator class="cart-nav" openType="redirect" url="/pages/cart/cart">
+    <image src="/static/images/nav-icon-cart.png"></image>
+  </navigator>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-btn">
+    <view class="l l-collect" bindtap="addCollectOrNot" wx:if="{{!isGroupon}}">
+      <image class="icon" src="{{ collectImage }}"></image>
+    </view>
+    <view class="l l-cart" wx:if="{{!isGroupon}}">
+      <view class="box">
+        <text class="cart-count">{{cartGoodsCount}}</text>
+        <image bindtap="openCartPage" class="icon" src="/static/images/ic_menu_shoping_nor.png"></image>
+      </view>
+    </view>
+    <view class="r" bindtap="addToCart" wx:if="{{!soldout}}" wx:if="{{!isGroupon}}">加入购物车</view>
+    <view class="c" bindtap="addFast" wx:if="{{!soldout}}">{{isGroupon?'参加团购':'立即购买'}}</view>
+    <view class="n" wx:if="{{soldout}}">商品已售空</view>
+  </view>
+</view>
+
+<view class="share-modal {{openShare?'active':''}}">
+  <view class="share-modal-body">
+    <view class="flex-row">
+      <view class="flex-grow-1 flex-x-center">
+        <button class="share-bottom" openType="share">
+          <image src="/static/images/wechat.png"></image>
+          <view>分享给朋友</view>
+        </button>
+      </view>
+      <view class="flex-grow-1 flex-x-center">
+        <view bindtap="saveShare" class="share-bottom">
+          <image src="/static/images/friend.png"></image>
+          <view>发朋友圈</view>
+        </view>
+      </view>
+    </view>
+    <view bindtap="closeShare" class="share-modal-close flex-y-center flex-x-center">关闭</view>
+  </view>
+</view>

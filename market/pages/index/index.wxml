@@ -1,0 +1,42 @@
+<!--index.wxml-->
+<view class="container">
+  <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
+    <swiper-item wx:for="{{banner}}" wx:key="id">
+      <!-- <navigator url="{{item.link}}"> -->
+      <image src="{{item.url}}" background-size="cover"></image>
+      <!-- </navigator> -->
+    </swiper-item>
+  </swiper>
+
+
+
+
+  <view class="good-grid" style="background: #fff;margin-bottom: 10rpx; width:100%;overflow-x: hidden;" wx:for="{{floorGoods}}" wx:key="id">
+  
+
+
+    <view class="title-bar flex-y-center flex-x-center">
+        <view class="title-line"></view>
+        <view class="title flex-y-center">
+            <text>{{item.name}}</text>
+        </view>
+        <view class="title-line"></view>
+        <navigator bindtap="hideGetCoupon" class="flex-y-center" url="/pages/category/category?id={{item.id}}">
+            <text>更多</text>
+            <image src="/static/images/icon-jiantou-r.png"></image>
+        </navigator>
+    </view>
+    <view class="goods-list flex-row goods-list-cols-3">
+        <view class="flex-grow-0" wx:for="{{item.goodsList}}" wx:key="id" wx:for-index="goods_index" wx:for-item="goods">
+            <navigator class="goods-item" url="../goods/goods?id={{goods.id}}" >
+                <image mode="aspectFill" src="{{goods.picUrl}}"></image>
+                <text class="text-more-2 fs-sm" style="padding:0 20rpx;height:2.8em;line-height:1.4;">{{goods.name}}</text>
+                <text class="goods-price">￥{{goods.retailPrice}}</text>
+                
+            </navigator>
+        </view>
+    </view>
+    
+  
+  </view>
+</view>

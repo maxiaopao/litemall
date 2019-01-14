@@ -1,0 +1,175 @@
+<view class="body after-navber">
+  <view style="position:relative;margin-bottom: 1rpx;">
+    <view class="user-info flex-row flex-y-center" bindtap="goLogin">
+      <image class="user-info-bg" mode="aspectFill" src="/static/images/ucenter/img-user-bg.png"></image>
+      <view class="flex-grow-1 flex-y-center flex-row userinfo-name">
+        <view class="flex-grow-0">
+          <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
+        </view>
+        <view class="flex-grow-1">
+          <text class="user-name">{{userInfo.nickName}}</text>
+
+        </view>
+      </view>
+      <view class="flex-grow-0 flex-y-center userinfo-addr" bindtap='goAddress'>
+        <view class="my-address flex-y-center">
+          <image src="/static/images/icon-address.png"></image>
+          <text>收货地址</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="order-block">
+    <view class="my-order" bindtap='goOrderIndex' data-index='0' data-route='/pages/ucenter/order/order'>我的订单
+      <image class='user_row_right' src='/static/images/address_right.png'></image>
+    </view>
+    <view class="flex-row">
+      <view class="flex-grow-1">
+        <view class="nav-item" bindtap='goOrderIndex' data-index='1' data-route='/pages/ucenter/order/order'>
+          <view>
+            <image src="/static/images/ucenter/icon-order-0.png"></image>
+          </view>
+          <view>待付款</view>
+          <view class="num-icon" wx:if="{{order.unpaid != 0}}">
+            {{order.unpaid}}
+          </view>
+        </view>
+      </view>
+      <view class="flex-grow-1">
+        <view class="nav-item" bindtap='goOrderIndex' data-index='2' data-route='/pages/ucenter/order/order'>
+          <view>
+            <image src="/static/images/ucenter/icon-order-1.png"></image>
+          </view>
+          <view>待发货</view>
+          <view class="num-icon" wx:if="{{order.unship != 0}}">
+            {{order.unship}}
+          </view>
+        </view>
+      </view>
+      <view class="flex-grow-1">
+        <view class="nav-item" bindtap='goOrderIndex' data-index='3' data-route='/pages/ucenter/order/order'>
+          <view>
+            <image src="/static/images/ucenter/icon-order-2.png"></image>
+          </view>
+          <view>待收货</view>
+          <view class="num-icon" wx:if="{{order.unrecv != 0}}">
+            {{order.unrecv}}
+          </view>
+        </view>
+      </view>
+      <view class="flex-grow-1">
+        <view class="nav-item" bindtap='goOrderIndex' data-index='4' data-route='/pages/ucenter/order/order'>
+          <view>
+            <image src="/static/images/ucenter/icon-order-3.png"></image>
+          </view>
+          <view>待评价</view>
+        </view>
+      </view>
+      <view class="flex-grow-1">
+        <view class="nav-item" bindtap='goAfterSale'>
+          <view>
+            <image src="/static/images/ucenter/icon-order-4.png"></image>
+          </view>
+          <view>售后</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="option-list">
+    <view class="option-item" bindtap='goCollect'>
+      <view class="flex-row option-content">
+        <view class="flex-grow-1 flex-row">
+          <view class="flex-grow-0 flex-y-center">
+            <image class="option-icon" src="/static/images/ucenter/icon-user-sc.png"></image>
+          </view>
+          <view class="flex-grow-1 flex-y-center">我的收藏</view>
+        </view>
+        <view class="flex-grow-0 flex-y-center">
+          <image class="option-jisntou" src="/static/images/ucenter/icon-jiantou-r.png"></image>
+        </view>
+      </view>
+    </view>
+
+
+
+    <button class="option-item" openType="contact" sessionFrom="{{userInfo.nickname}}|" plain="true">
+      <view class="flex-row option-content">
+        <view class="flex-grow-1 flex-row">
+          <view class="flex-grow-0 flex-y-center">
+            <image class="option-icon" src="/static/images/ucenter/icon-user-kf.png"></image>
+          </view>
+          <view class="flex-grow-1 flex-y-center">在线客服</view>
+        </view>
+        <view class="flex-grow-0 flex-y-center">
+          <image class="option-jisntou" src="/static/images/ucenter/icon-jiantou-r.png"></image>
+        </view>
+      </view>
+    </button>
+
+    <view class="option-item" bindtap='goAddress'>
+      <view class="flex-row option-content">
+        <view class="flex-grow-1 flex-row">
+          <view class="flex-grow-0 flex-y-center">
+            <image class="option-icon" src="/static/images/ucenter/icon-user-dz.png"></image>
+          </view>
+          <view class="flex-grow-1 flex-y-center">收货地址</view>
+        </view>
+        <view class="flex-grow-0 flex-y-center">
+          <image class="option-jisntou" src="/static/images/ucenter/icon-jiantou-r.png"></image>
+        </view>
+      </view>
+    </view>
+
+    <button class="option-item" open-type="getPhoneNumber" bindgetphonenumber="bindPhoneNumber">
+      <view class="flex-row option-content">
+        <view class="flex-grow-1 flex-row">
+          <view class="flex-grow-0 flex-y-center">
+            <image class="option-icon" src="/static/images/ucenter/icon-user-bangding.png"></image>
+          </view>
+          <view class="flex-grow-1 flex-y-center">绑定手机号</view>
+        </view>
+        <view class="flex-grow-0 flex-y-center">
+          <image class="option-jisntou" src="/static/images/ucenter/icon-jiantou-r.png"></image>
+        </view>
+      </view>
+    </button>
+
+  </view>
+
+
+  <view class="option-list">
+
+    <view class="option-item" bindtap='goFeedback'>
+      <view class="flex-row option-content">
+        <view class="flex-grow-1 flex-row">
+          <view class="flex-grow-0 flex-y-center">
+            <image class="option-icon" src="/static/images/ucenter/yijian.png"></image>
+          </view>
+          <view class="flex-grow-1 flex-y-center">意见反馈</view>
+        </view>
+        <view class="flex-grow-0 flex-y-center">
+          <image class="option-jisntou" src="/static/images/ucenter/icon-jiantou-r.png"></image>
+        </view>
+      </view>
+    </view>
+    <navigator bindtap="callTel" class="option-item" data-tel="18516766085">
+      <view class="flex-row option-content">
+        <view class="flex-grow-1 flex-row">
+          <view class="flex-grow-0 flex-y-center">
+            <image class="option-icon" src="/static/images/ucenter/icon-user-lx.png"></image>
+          </view>
+          <view class="flex-grow-1 flex-y-center">联系我们</view>
+        </view>
+        <view class="flex-grow-0 flex-y-center">
+          <image class="option-jisntou" src="/static/images/ucenter/icon-jiantou-r.png"></image>
+        </view>
+      </view>
+    </navigator>
+
+
+  </view>
+
+</view>

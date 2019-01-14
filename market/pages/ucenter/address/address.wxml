@@ -1,0 +1,41 @@
+<view class="container">
+  <view class="bottom-bar">
+    <view bindtap="addressAddOrUpdate" data-address-id="0">添加新地址</view>
+  </view>
+  <view class="no-data-tip" wx:if="{{ addressList.length <= 0 }}">暂无收货地址</view>
+  <view class="address-list" wx:if="{{ addressList.length > 0 }}">
+    <view class="address-item" wx:for="{{addressList}}" wx:key="id">
+      <view class="userinfo flex-row">
+        <view class="flex-grow-1">收货人：{{item.name}}</view>
+        <view class="flex-grow-0">{{item.mobile}}</view>
+      </view>
+      <view class="address-detail">收货地址：{{item.detailedAddress}}</view>
+      <view class="flex-row">
+        <view class="flex-grow-1">
+          <view style="display: inline-block" wx:if="{{item.isDefault==1}}">
+            <navigator class="default-address active flex-row flex-y-center">
+              <image src="/static/images/icon-checked.png" style="width: 40rpx;height: 40rpx;margin-right: 12rpx"></image>
+              <text>默认地址</text>
+            </navigator>
+          </view>
+          <view style="display: inline-block" wx:else>
+            <navigator bindtap="setDefaultAddress" class="default-address flex-row flex-y-center" data-index="{{index}}">
+              <image src="/static/images/icon-uncheck.png" style="width: 40rpx;height: 40rpx;margin-right: 12rpx"></image>
+              <navigator>设为默认</navigator>
+            </navigator>
+          </view>
+        </view>
+        <view class="flex-grow-0 flex-row">
+          <view class="address-option flex-y-center" bindtap="addressAddOrUpdate" data-address-id="{{item.id}}">
+            <image src="/static/images/icon-edit.png"></image>
+            <text>编辑</text>
+          </view>
+          <view bindtap="deleteAddress" class="address-option flex-y-center" data-address-id="{{item.id}}">
+            <image src="/static/images/icon-delete.png"></image>
+            <text>删除</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

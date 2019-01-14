@@ -1,0 +1,10 @@
+diff a/litemall-wx/project.config.json b/litemall-wx/project.config.json	(rejected hunks)
+@@ -9,7 +9,7 @@
+ 	},
+ 	"compileType": "miniprogram",
+ 	"libVersion": "1.9.93",
+-	"appid": "wxa5b486c6b918ecfb",
++	"appid": "wx39f7d8e743b2191e",
+ 	"projectname": "litemall-wx",
+ 	"condition": {
+ 		"search": {

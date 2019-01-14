@@ -1,0 +1,6 @@
+{
+ "navigationBarTitleText": "超市首页",
+ "usingComponents": {
+  "zan-capsule": "../../lib/zanui-weapp/capsule/index"
+ }
+}
